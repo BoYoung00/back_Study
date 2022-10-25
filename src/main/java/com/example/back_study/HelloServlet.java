@@ -16,8 +16,8 @@ public class HelloServlet extends HttpServlet {
         message = "Hello World!";
     }
 
-    //갭 맵핑 : 메인페이지 글 작성 > 다음 페이지 넘어갈 때 (처음경로)
-    //포스트 맵핑 : 결과값 처리해서 다음 페이지로 넘어갈 때 (차이점 구글링 하기)
+    //get mapping : 메인페이지 글 작성 > 다음 페이지 넘어갈 때 (처음경로)
+    //post mapping : 결과값 처리해서 다음 페이지로 넘어갈 때 (차이점 구글링 하기)
     //request받아주기, response 결과값 보내기
     //throws 예외처리 오류면 IOException 실행
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
