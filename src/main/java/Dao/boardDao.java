@@ -5,6 +5,7 @@ import Dto.boardDto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class boardDao {
     //jdbc:mysql://localhost:3306/bydbst
@@ -41,5 +42,54 @@ public class boardDao {
             e.printStackTrace();
         }
         return inserCount;
+    }
+
+    public boardDto getDto(String id) {
+        boardDto boardDto = null;
+        Connection conn = null; //데이터베이스 연결
+
+        PreparedStatement ps=null; //sql문장
+        ResultSet rs = null; //값으로 뭔갈 해야할 때 사용
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, password);
+            String sql="select title, content from board where title=?";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,id);
+
+            rs=ps.executeQuery();
+            if (rs.next()){
+                String title=rs.getString(1);
+                String content=rs.getString(2);
+                boardDto=new boardDto(title, content);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally { //무조건 한 번 실행 시키기
+            if (rs != null) {
+                try {
+                    rs.close();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return boardDto;
+
     }
 }
