@@ -92,4 +92,80 @@ public class boardDao {
         return boardDto;
 
     }
+    public int deleteTest(String title) {
+        int deleteCount = 0;
+
+        Connection conn=null;
+
+        PreparedStatement ps=null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, password);
+            String sql="delete from board where title=?";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1, title);
+            deleteCount=ps.executeUpdate();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        finally { //무조건 한 번 실행 시키기
+            if (ps != null) {
+                try {
+                    ps.close();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return deleteCount;
+    }
+
+    public int update(boardDto boardDto) {
+        int updateCount=0;
+
+        Connection conn=null;
+        PreparedStatement ps=null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, password);
+            String sql="update board set content=? where title=?";
+            ps=conn.prepareStatement(sql);
+
+            ps.setString(1, boardDto.getContent());
+            ps.setString(2, boardDto.getTitle());
+
+            updateCount=ps.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        finally { //무조건 한 번 실행 시키기
+            if (ps != null) {
+                try {
+                    ps.close();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return updateCount;
+    }
 }
