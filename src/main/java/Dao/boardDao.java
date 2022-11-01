@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class boardDao {
     //jdbc:mysql://localhost:3306/bydbst
@@ -180,5 +182,36 @@ public class boardDao {
             }
         }
         return updateCount;
+    }
+
+    public List<boardDto> getboards() {
+        List<boardDto> list = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        String sql = "select title, content from board order by title desc";
+
+        try (Connection conn = DriverManager.getConnection(url,user,password);
+            PreparedStatement ps = conn.prepareStatement(sql);){
+            try(ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()){
+                    String title = rs.getString(1);
+                    String content = rs.getString("content");
+
+                    boardDto dto = new boardDto(title, content);
+                    list.add(dto);
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

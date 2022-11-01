@@ -2,6 +2,8 @@ package Test;
 import Dto.boardDto;
 import Dao.boardDao;
 
+import java.util.List;
+
 public class Exam {
     public static void main(String[] args) {
 //        String title="타이틀입니다3";
@@ -19,17 +21,12 @@ public class Exam {
 //        boardDto dto=dao.getDto("타이틀입니다1");
 //        System.out.println(dto);
 
-
-        //수정
-        String title="타이틀입니다2";
-        String content="타이틀입니다 수정본";
-
-        boardDto dto = new boardDto(title, content);
         boardDao dao = new boardDao();
+        List<boardDto> list = dao.getboards();
 
-        int updatecount=dao.update(dto);
-
-        System.out.println(updatecount);
+        for (boardDto boardDto:list) {
+            System.out.println(boardDto);
+        }
 
     }
     //추가
@@ -64,4 +61,18 @@ public class Exam {
 
         System.out.println(deleteCount);
     }
+
+    //수정
+    public  static  void correct() {
+        String title = "타이틀입니다2";
+        String content = "타이틀입니다 수정본";
+
+        boardDto dto = new boardDto(title, content);
+        boardDao dao = new boardDao();
+
+        int updatecount = dao.update(dto);
+
+        System.out.println(updatecount);
+    }
+
 }
