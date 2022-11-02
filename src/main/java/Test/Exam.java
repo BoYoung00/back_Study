@@ -10,7 +10,6 @@ public class Exam {
 //        String content="컨텐츠입니다3";
 //
 //        boardDto dto = new boardDto(title, content);
-//
 //        boardDao dao=new boardDao();
 //        int insertCount=dao.addUser(dto);
 //
@@ -35,7 +34,7 @@ public class Exam {
         String content=body;
 
         boardDto dto = new boardDto(title, content);
-        boardDao dao=new boardDao();
+        boardDao dao = new boardDao();
 
         int insertCount=dao.addUser(dto);
 
