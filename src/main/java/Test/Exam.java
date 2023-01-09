@@ -54,7 +54,6 @@ public class Exam {
     public  static void delete(){
         String title="타이틀입니다";
 
-        //왜 삭제만 dao 부름?
         boardDao boardDao = new boardDao();
         int deleteCount = boardDao.deleteTest(title);
 

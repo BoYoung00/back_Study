@@ -38,7 +38,7 @@ public class boardDao {
 
         //Connection : 데이터베이스 연결, preparedStatement : sql 문장 실행 역할
         try(Connection conn = DriverManager.getConnection(url, user, password);
-            PreparedStatement ps = conn.prepareStatement(sql);) {
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, boardDto.getTitle());
             ps.setString(2, boardDto.getContent());
